@@ -6,21 +6,18 @@ const dbConnect = require("./db");
 const SensorData = require("./SensorData");
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 app.use(express.json);
 app.use(cors());
 
 dbConnect();
 
-app.get("/api/sensors", async (req,res) => {
-    try{
-        const data = await SensorData.find().sort({timestamp: -1});
-        res.json(data);
-    } catch(error){
-        res.status(500).json({error: "Error ffetching sensor data"});
-    }
+app.use("/api/sensor", require("./routes/sensorRoutes"));
+
+app.get("/", (req,res) =>{
+    res.send("IOT Server is running");
 });
 
-const PORT = process.env.PORT || 5000;
 app.listen(PORT,() =>{
     console.log(`Server running on http://localhost:${PORT}`);
 })
