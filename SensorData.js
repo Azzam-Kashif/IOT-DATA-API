@@ -7,4 +7,7 @@ const SensorDataSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model("SensorData", SensorDataSchema);
+const SensorData = mongoose.models.SensorData || mongoose.model("SensorData", SensorDataSchema);
+
+
+module.exports = SensorData;
