@@ -8,7 +8,7 @@ const MQTT_BROKER_URL = process.env.MQTT_BROKER_URL || "mqtt://localhost";
 const MQTT_TOPIC = "sensor/data";
 
 // Connect to MQTT Broker
-const client = mqtt.connect(MQTT_BROKER_URL);
+const client = mqtt.connect("ws://localhost:9001");
 
 // Handle connection
 client.on("connect", () => {
@@ -43,7 +43,7 @@ client.on("message", async (topic, message) => {
 
 // Handle errors
 client.on("error", (err) => {
-  console.error("MQTT Connection Error:", err.message);
+  console.error("MQTT Connection Error: ", err);
 });
 
 module.exports = client;
